@@ -12,12 +12,60 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/splash.css">
   <link rel="stylesheet" href="css/hero.css">
   <link rel="stylesheet" href="css/suit.css">
+  <link rel="stylesheet" href="css/web-shooter-3d.css">
   <link rel="stylesheet" href="css/characters.css">
   <link rel="stylesheet" href="css/trailer.css">
 </head>
 <body>
+  <div class="splash-screen" id="splash-screen" role="status" aria-live="polite" aria-label="Loading Spider-Man experience">
+    <div class="splash-atmosphere" aria-hidden="true"></div>
+
+    <div class="splash-center-stack" aria-hidden="true">
+      <div class="classic-web">
+        <svg id="splash-web-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet" focusable="false">
+          <g id="web-spokes" class="web-spokes"></g>
+          <g id="web-rings" class="web-rings"></g>
+        </svg>
+      </div>
+
+      <div class="splash-spider">
+        <svg viewBox="0 0 400 520" preserveAspectRatio="xMidYMid meet" focusable="false">
+          <!-- Permanent translation is isolated from the animated inner group.
+               This keeps the emblem locked to the exact center of its SVG. -->
+          <g class="spider-anchor" transform="translate(200 260)">
+            <g class="spider-2017">
+              <!-- 2017-inspired angular spider mark: compact body + long mechanical legs -->
+              <path class="spider-leg spider-leg--left" d="M-36 -78 L-112 -78 L-150 -132 L-150 -218 L-130 -218 L-130 -145 L-98 -102 L-58 -102 Z"/>
+              <path class="spider-leg spider-leg--right" d="M36 -78 L112 -78 L150 -132 L150 -218 L130 -218 L130 -145 L98 -102 L58 -102 Z"/>
+
+              <path class="spider-leg spider-leg--left" d="M-50 -32 L-132 -26 L-174 -66 L-174 -130 L-153 -130 L-153 -77 L-122 -49 L-58 -54 Z"/>
+              <path class="spider-leg spider-leg--right" d="M50 -32 L132 -26 L174 -66 L174 -130 L153 -130 L153 -77 L122 -49 L58 -54 Z"/>
+
+              <path class="spider-leg spider-leg--left" d="M-50 32 L-132 26 L-174 66 L-174 130 L-153 130 L-153 77 L-122 49 L-58 54 Z"/>
+              <path class="spider-leg spider-leg--right" d="M50 32 L132 26 L174 66 L174 130 L153 130 L153 77 L122 49 L58 54 Z"/>
+
+              <path class="spider-leg spider-leg--left" d="M-36 78 L-112 78 L-150 132 L-150 218 L-130 218 L-130 145 L-98 102 L-58 102 Z"/>
+              <path class="spider-leg spider-leg--right" d="M36 78 L112 78 L150 132 L150 218 L130 218 L130 145 L98 102 L58 102 Z"/>
+
+              <path class="spider-body-mark" d="M0 -92 L47 -61 L54 -11 L38 66 L0 104 L-38 66 L-54 -11 L-47 -61 Z"/>
+              <path class="spider-body-cut" d="M0 -67 L25 -49 L30 -13 L17 48 L0 68 L-17 48 L-30 -13 L-25 -49 Z"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="splash-copy">
+      <strong>SPIDER-MAN</strong>
+      <span>CONNECTING TO NEW YORK</span>
+    </div>
+
+    <div class="splash-progress" aria-hidden="true"><span></span></div>
+    <div class="splash-vignette" aria-hidden="true"></div>
+  </div>
   <div class="film-grain" aria-hidden="true"></div>
   <div class="progress" aria-hidden="true"><span id="page-progress"></span></div>
 
@@ -36,8 +84,17 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-bg parallax-layer" data-depth="0.2" aria-hidden="true"></div>
       <div class="hero-light parallax-layer" data-depth="0.5" aria-hidden="true"></div>
-      <div class="hero-figure parallax-layer" data-depth="0.35" aria-hidden="true">
-        <div class="spider-silhouette"><span></span></div>
+      <div class="hero-entry-wipe" aria-hidden="true"></div>
+      <div class="hero-figure parallax-layer hero-spiderman-figure" data-depth="0.35" aria-hidden="true">
+        <img
+          class="hero-spiderman-image"
+          src="assets/hero/spidermanbg.png"
+          alt=""
+          width="1080"
+          height="1350"
+          decoding="async"
+          fetchpriority="high"
+        >
       </div>
       <div class="hero-content reveal">
         <p class="eyebrow">MARVEL STUDIOS</p>
@@ -95,9 +152,18 @@
       <div class="module-copy reveal">
         <span>WRIST MODULE</span>
         <h2>MECHANISM<br>READY.</h2>
-        <dl><div><dt>PRESSURE</dt><dd>LOCKED</dd></div><div><dt>CARTRIDGE</dt><dd>ACTIVE</dd></div><div><dt>TRIGGER</dt><dd>ARMED</dd></div></dl>
+        <dl><div><dt>PALM TRIGGER</dt><dd>LINKED</dd></div><div><dt>CARTRIDGE</dt><dd>ACTIVE</dd></div><div><dt>EMITTER CORE</dt><dd>ARMED</dd></div></dl>
       </div>
-      <div class="web-device" aria-hidden="true"><div class="device-core"></div><div class="device-wing wing-a"></div><div class="device-wing wing-b"></div></div>
+      <div class="web-shooter-3d reveal" aria-label="Interactive 3D web shooter model">
+        <div class="web-shooter-canvas-wrap">
+          <canvas id="web-shooter-canvas" aria-hidden="true"></canvas>
+          <div class="web-shooter-fallback" aria-hidden="true">
+            <div class="fallback-shooter"><span></span><i></i><b></b></div>
+          </div>
+          <div class="web-shooter-reticle" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+          <div class="web-shooter-hint"><span>DRAG TO ROTATE</span><span>3D / LIVE</span></div>
+        </div>
+      </div>
     </section>
 
     <section class="story section" id="story">
@@ -140,6 +206,9 @@
     <div class="dialog-placeholder"><span>TRAILER VIDEO PLACEHOLDER</span><p>Add your licensed MP4 to <code>assets/video/</code> and replace this panel with a video element.</p></div>
   </dialog>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <script src="js/web-shooter-3d.js" defer></script>
+  <script src="js/splash.js" defer></script>
   <script src="js/main.js" defer></script>
   <script src="js/scroll.js" defer></script>
   <script src="js/suit.js" defer></script>

@@ -76,3 +76,12 @@ The WRIST MODULE section now contains a procedural WebGL 3D web-shooter built wi
 The interactive Wrist Module model was rebuilt using `assets/reference/web-shooter.jpg` as its visual reference. The procedural model now prioritizes the visible characteristics of that image: an elongated tapered black gauntlet, cyan illuminated circuit lines, angular silver/gold side armor, a red/orange central core, and the narrow mechanical extension to a circular palm trigger.
 
 Because the supplied reference is a single 2D view, hidden/back-side geometry is an interpretation rather than an exact reconstruction. The visible/front-facing silhouette, proportions, color hierarchy, and key mechanical elements are the primary matching targets.
+
+## Story section: Gwen fall entrance
+
+`assets/story/gwendied.png` is anchored close to the top edge so the web strand visually meets the upper border. When the `.story` section enters the viewport, JavaScript adds `story-gwen--falling`, triggering a downward fall with a small overshoot and recoil to simulate the web catching her weight. Reduced-motion users receive the final static position immediately.
+
+
+## Gwen story scroll interaction
+
+The Gwen image in the story section is scroll-scrubbed rather than triggered once. `js/main.js` calculates progress from the story section's viewport position on every animation frame requested by scrolling. The image begins above the frame and transparent, falls as the page is scrolled downward, settles with a small web-catch recoil, and follows the exact movement backward when the user scrolls upward. Reduced-motion users receive a static final placement.

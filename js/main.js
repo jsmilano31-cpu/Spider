@@ -1,12 +1,4 @@
 (() => {
-  const dialog = document.querySelector('#trailer-dialog');
-  const openBtn = document.querySelector('#play-trailer');
-  const closeBtn = document.querySelector('#close-trailer');
-  if (dialog && openBtn && closeBtn) {
-    openBtn.addEventListener('click', () => dialog.showModal());
-    closeBtn.addEventListener('click', () => dialog.close());
-    dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
-  }
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('visible'));
   }, { threshold: .18 });
@@ -71,6 +63,17 @@
       gwenImage.style.setProperty('--gwen-opacity', opacity.toFixed(3));
       gwenImage.style.setProperty('--gwen-rotate', `${swing.toFixed(3)}deg`);
       gwenImage.style.setProperty('--gwen-scale', scale.toFixed(4));
+
+      // Keep Spider-Man in the same story-photo layer while giving him a
+      // restrained counter-motion toward Gwen as the rescue beat develops.
+      const spiderImage = storySection.querySelector('.story-spiderdark');
+      if (spiderImage) {
+        const spiderEase = smoothstep(clamp((rawProgress - 0.08) / 0.72));
+        spiderImage.style.setProperty('--spider-x', `${(3 - spiderEase * 3).toFixed(3)}vw`);
+        spiderImage.style.setProperty('--spider-y', `${(1.5 - spiderEase * 1.5).toFixed(3)}vh`);
+        spiderImage.style.setProperty('--spider-scale', (0.985 + spiderEase * 0.015).toFixed(4));
+      }
+
       storySection.classList.toggle('story-gwen-active', rawProgress > 0.001);
     }
 

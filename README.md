@@ -85,3 +85,32 @@ Because the supplied reference is a single 2D view, hidden/back-side geometry is
 ## Gwen story scroll interaction
 
 The Gwen image in the story section is scroll-scrubbed rather than triggered once. `js/main.js` calculates progress from the story section's viewport position on every animation frame requested by scrolling. The image begins above the frame and transparent, falls as the page is scrolled downward, settles with a small web-catch recoil, and follows the exact movement backward when the user scrolls upward. Reduced-motion users receive a static final placement.
+
+## Story rescue composition update
+
+The `.story-photo` layer now contains both `gwendied.png` and `spiderdark.png`. Gwen has been shifted left to open the right side of the frame, while Spider-Man is anchored to the lower-right edge and reaches inward toward her. Gwen retains the reversible scroll-scrubbed fall/catch animation. Spider-Man receives only a restrained counter-motion tied to the same scroll progress so the scene reads as one rescue beat without overpowering Gwen's fall.
+
+
+## Peter portrait update
+- Added `assets/characters/peterparker.png` to the Peter card.
+- Uses the same centered, bottom-anchored transparent-image treatment as MJ.
+- Removed Peter's generic silhouette placeholder while keeping card hover behavior.
+
+
+## Character portrait balance update
+
+- Added `assets/characters/kraven.png` to THE HUNTER card.
+- Increased MJ portrait presence.
+- Reduced Peter portrait size to compensate for the source being a close-up crop.
+- Added separate responsive sizing for all three portraits.
+
+
+## Trailer integration
+The Trailer section now embeds the supplied YouTube video (`JfVOs4VSpmA`) using the privacy-enhanced YouTube embed domain. An internet connection is required for playback.
+
+
+## UI cleanup
+
+- Removed the fixed red page scroll progress bar from the top edge.
+- Removed the page-progress JavaScript from the document.
+- Disabled the moving fixed film-grain transform that could expose/flicker at the left and right viewport edges. The grain remains as a static oversized texture so the cinematic look is preserved without corner blinking.

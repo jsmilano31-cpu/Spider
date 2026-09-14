@@ -67,7 +67,6 @@
     <div class="splash-vignette" aria-hidden="true"></div>
   </div>
   <div class="film-grain" aria-hidden="true"></div>
-  <div class="progress" aria-hidden="true"><span id="page-progress"></span></div>
 
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Spider-Man home">SPIDER-MAN</a>
@@ -169,6 +168,7 @@
     <section class="story section" id="story">
       <div class="story-photo" aria-hidden="true">
         <img class="story-gwen" src="assets/story/gwendied.png" alt="">
+        <img class="story-spiderdark" src="assets/story/spiderdark.png" alt="">
       </div>
       <div class="story-copy reveal"><span>NEW YORK / 02:41 AM</span><h2>EVERY CHOICE<br>LEAVES A MARK.</h2><p>When the city turns uncertain, the line between protecting a life and changing one becomes impossible to ignore.</p></div>
     </section>
@@ -176,18 +176,27 @@
     <section class="characters section" id="characters">
       <div class="section-head"><span>THE PEOPLE IN THE STORY</span><h2>CHARACTERS</h2></div>
       <div class="character-grid">
-        <article class="character-card peter" tabindex="0"><div class="portrait"></div><div class="character-name"><span>01</span><h3>PETER</h3></div></article>
-        <article class="character-card mj" tabindex="0"><div class="portrait"></div><div class="character-name"><span>02</span><h3>MJ</h3></div></article>
-        <article class="character-card villain" tabindex="0"><div class="portrait"></div><div class="character-name"><span>03</span><h3>THE HUNTER</h3></div></article>
+        <article class="character-card peter" tabindex="0"><div class="portrait"><img class="character-portrait-img character-portrait-img--peter" src="assets/characters/peterpark-new.png" alt="Peter Parker"></div><div class="character-name"><span>01</span><h3>PETER</h3></div></article>
+        <article class="character-card mj" tabindex="0"><div class="portrait"><img class="character-portrait-img character-portrait-img--mj" src="assets/characters/mj.png" alt="MJ"></div><div class="character-name"><span>02</span><h3>MJ</h3></div></article>
+        <article class="character-card villain" tabindex="0"><div class="portrait"><img class="character-portrait-img character-portrait-img--kraven" src="assets/characters/kraven.png" alt="The Hunter"></div><div class="character-name"><span>03</span><h3>THE HUNTER</h3></div></article>
       </div>
     </section>
 
     <section class="trailer section" id="trailer">
       <div class="trailer-lead reveal"><p>SEE IT</p><h2>ON THE<br>BIG SCREEN.</h2></div>
-      <div class="video-frame" role="group" aria-label="Trailer placeholder">
-        <div class="video-poster"></div>
-        <button class="play" type="button" id="play-trailer" aria-label="Play trailer"><span>▶</span></button>
-        <div class="video-label">OFFICIAL TRAILER / 02:26</div>
+      <div class="video-frame video-frame--youtube" id="youtubeTrailerFrame" role="group" aria-label="Official Spider-Man trailer">
+        <iframe
+          class="youtube-trailer"
+          id="youtubeTrailer"
+          src="https://www.youtube-nocookie.com/embed/JfVOs4VSpmA?rel=0&modestbranding=1&playsinline=1"
+          title="Spider-Man official trailer"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+        <div class="video-label">OFFICIAL TRAILER / YOUTUBE</div>
       </div>
     </section>
 
@@ -203,17 +212,36 @@
     </section>
   </main>
 
-  <dialog id="trailer-dialog">
-    <button id="close-trailer" aria-label="Close trailer">×</button>
-    <div class="dialog-placeholder"><span>TRAILER VIDEO PLACEHOLDER</span><p>Add your licensed MP4 to <code>assets/video/</code> and replace this panel with a video element.</p></div>
-  </dialog>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
   <script src="js/web-shooter-3d.js" defer></script>
   <script src="js/splash.js" defer></script>
   <script src="js/main.js" defer></script>
-  <script src="js/scroll.js" defer></script>
   <script src="js/suit.js" defer></script>
   <script src="js/parallax.js" defer></script>
+
+  <script>
+    // YouTube embeds require a normal HTTP(S) origin. When this project is
+    // opened directly with file://, show an actionable message instead of
+    // leaving YouTube Error 153 on screen.
+    (function () {
+      if (window.location.protocol !== 'file:') return;
+
+      const frame = document.getElementById('youtubeTrailerFrame');
+      const iframe = document.getElementById('youtubeTrailer');
+      if (!frame || !iframe) return;
+
+      iframe.remove();
+      frame.classList.add('youtube-local-warning');
+      frame.innerHTML = `
+        <div class="youtube-local-warning__inner">
+          <span class="youtube-local-warning__eyebrow">TRAILER PLAYER</span>
+          <h3>OPEN THE SITE THROUGH LOCALHOST</h3>
+          <p>YouTube blocks embedded playback when <code>index.html</code> is opened with a <code>file://</code> address.</p>
+          <p>Run <strong>START-SITE.bat</strong> from the project folder, then use the localhost page it opens.</p>
+          <a class="btn btn-primary" href="https://www.youtube.com/watch?v=JfVOs4VSpmA" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+        </div>`;
+    })();
+  </script>
 </body>
 </html>
